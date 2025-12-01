@@ -1,0 +1,55 @@
+# Cloudflare Workers configuration for Productivity App
+name = "productivity-app"
+main = "workers.js"
+compatibility_date = "2024-11-27"
+compatibility_flags = ["nodejs_compat"]
+
+# KV storage for user data
+[[kv_namespaces]]
+binding = "PRODUCTIVITY_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+# Static site configuration
+[site]
+bucket = "../dist"
+entry-point = "workers.js"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+
+# Production environment
+[env.production]
+name = "productivity-app-prod"
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.kv_namespaces]]
+binding = "PRODUCTIVITY_KV"
+id = "your-production-kv-namespace-id"
+
+# Development environment  
+[env.development]
+name = "productivity-app-dev"
+vars = { ENVIRONMENT = "development" }
+
+[[env.development.kv_namespaces]]
+binding = "PRODUCTIVITY_KV"
+preview_id = "your-dev-kv-namespace-id"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = ".."
+watch_dir = ["../src"]
+
+# Triggers and rules
+[[triggers]]
+crons = ["0 */6 * * *"]  # Run every 6 hours for cleanup tasks
+
+# Custom domains (configure in Cloudflare dashboard)
+# route = "productivity-app.your-domain.com/*"
+
+# Upload rules
+[upload]
+format = "modules"
