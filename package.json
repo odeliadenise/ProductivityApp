@@ -7,7 +7,10 @@
     "build": "tsc && vite build",
     "build:cloudflare": "npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "wrangler deploy",
+    "dev:workers": "wrangler dev",
+    "kv:create": "wrangler kv:namespace create PRODUCTIVITY_KV"
   },
   "dependencies": {
     "clsx": "^2.0.0",
@@ -17,6 +20,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
@@ -29,6 +33,7 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
-    "vite": "^4.5.0"
+    "vite": "^4.5.0",
+    "wrangler": "^3.0.0"
   }
 }
